@@ -118,4 +118,79 @@ Write2dArray(myArray);
 Console.WriteLine($"Строка с наименьшей суммой элементов под номером - {FindMinRowSum(myArray)+1}");
 */
 
-// 
+// Task 58. Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
+
+int[,] CreateRandom2dArray()
+{
+    Console.Write("Введите число строк: ");
+    int rows = Convert.ToInt32(Console.ReadLine());
+    Console.Write("Введите число столбцов: ");
+    int columns = Convert.ToInt32(Console.ReadLine());
+    Console.Write("Введите минимальное число: ");
+    int min = Convert.ToInt32(Console.ReadLine());
+    Console.Write("Введите максимальное число: ");
+    int max = Convert.ToInt32(Console.ReadLine());
+    int[,] array = new int[rows, columns];
+
+    for (int i = 0; i < rows; i++)
+        for (int j = 0; j < columns; j++)
+            array[i, j] = new Random().Next(min, max + 1);
+
+    return array;
+}
+
+void Write2dArray(int[,] array)
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+            Console.Write("  ");
+        Console.Write("|");
+        for (int j = 0; j < array.GetLength(1); j++)
+            Console.Write(array[i, j] + "  ");
+
+        Console.WriteLine();
+    }
+    for (int j = 0; j < array.GetLength(1) * 3 - 1; j++)
+        Console.Write("__");
+
+    Console.WriteLine();
+}
+
+void Write2dArray2(int[,] array1, int[,] array2)
+{
+    for (int i = 0; i < array1.GetLength(0); i++)
+    {
+        for (int j = 0; j < array1.GetLength(1); j++)
+            Console.Write(array1[i, j] + " ");
+
+        Console.Write("|");
+        for (int j = 0; j < array2.GetLength(1); j++)
+            if (array2[i, j] < 10) Console.Write(array2[i, j] + "  ");
+            else Console.Write(array2[i, j] + " ");
+
+        Console.WriteLine();
+    }
+    //Console.WriteLine();
+}
+
+int[,] MultiplyMatrix(int[,] array1, int[,] array2)
+{
+    int[,] result = new int[array1.GetLength(0), array2.GetLength(1)];
+
+    for (int i = 0; i < array1.GetLength(0); i++)
+        for (int j = 0; j < array2.GetLength(1); j++)
+            for (int k = 0; k < array1.GetLength(1); k++)
+                result[i, j] += array1[i, k] * array2[k, j];
+    return result;
+}
+
+int[,] myArray1 = CreateRandom2dArray();
+int[,] myArray2 = CreateRandom2dArray();
+if (myArray1.GetLength(1) != myArray2.GetLength(0)) Console.WriteLine("Эти матрицы нельзя перемножить!");
+else
+{
+    int[,] multipliedArray = MultiplyMatrix(myArray1, myArray2);
+    Write2dArray(myArray2);
+    Write2dArray2(myArray1, multipliedArray);
+}

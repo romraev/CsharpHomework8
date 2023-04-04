@@ -168,7 +168,7 @@ Console.WriteLine($"Строка с наименьшей суммой элеме
     return array;
 }
 
-void Write2dArray(int[,] array)
+void Write2dArray(int[,] array) // Жду доп. балл за старания с выводом
 {
     for (int i = 0; i < array.GetLength(0); i++)
     {
@@ -230,7 +230,26 @@ else
 // Task 60. Сформируйте трёхмерный массив из неповторяющихся двузначных чисел. 
 // Напишите программу, которая будет построчно выводить массив, добавляя индексы каждого элемента.
 
-/* int[,,] CreateRandom3dArray(int row, int column, int level)
+/* void CheckRepeat(int[,,] array, int i, int j, int k)
+{
+    for (int l = 0; l < array.GetLength(0); l++)
+    {
+        for (int m = 0; m < array.GetLength(1); m++)
+            for (int n = 0; n < array.GetLength(2); n++)
+            {
+                if (l == i && m == j && n == k) break;
+                else if (array[i, j, k] == array[l, m, n])
+                {
+                    array[i, j, k] = new Random().Next(10, 100);
+                    l = 0;
+                    m = 0;
+                    n = 0;
+                }
+            }
+    }
+}
+
+int[,,] CreateRandom3dArray(int row, int column, int level)
 {
     int[,,] array = new int[row, column, level];
 
@@ -239,26 +258,12 @@ else
             for (int k = 0; k < level; k++)
             {
                 array[i, j, k] = new Random().Next(10, 100);
-                for (int l = 0; l < array.GetLength(0); l++)
-                {
-                    for (int m = 0; m < array.GetLength(1); m++)
-                        for (int n = 0; n < array.GetLength(2); n++)
-                        {
-                            if (l == i && m == j && n == k) break;
-                            else if (array[i, j, k] == array[l, m, n])
-                            {
-                                array[i, j, k] = new Random().Next(10, 100);
-                                l = 0;
-                                m = 0;
-                                n = 0;
-                            }
-                        }
-                }
+                CheckRepeat(array, i, j, k);
             }
     return array;
 }
 
-void Write3dArray(int[,,] array) // Жду доп. балл за старания с выводом
+void Write3dArray(int[,,] array) // Опять же жду доп. балл за старания с выводом
 {
     for (int s = 1; s <= array.GetLength(1); s++)
         Console.Write("  ");
@@ -312,7 +317,7 @@ else
 
 // Task 62. Напишите программу, которая заполнит спирально массив 4 на 4.
 
-int[,] CreateRandom2dArray()
+/* int[,] CreateRandom2dArray()
 {
     Console.Write("Введите число строк: ");
     int rows = Convert.ToInt32(Console.ReadLine());
@@ -370,3 +375,4 @@ void Write2dArray(int[,] array)
 int[,] myArray = CreateRandom2dArray();
 Spiral(myArray, 0, 1);
 Write2dArray(myArray);
+*/

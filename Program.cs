@@ -233,7 +233,6 @@ else
 /* void CheckRepeat(int[,,] array, int i, int j, int k)
 {
     for (int l = 0; l < array.GetLength(0); l++)
-    {
         for (int m = 0; m < array.GetLength(1); m++)
             for (int n = 0; n < array.GetLength(2); n++)
             {
@@ -246,7 +245,6 @@ else
                     n = 0;
                 }
             }
-    }
 }
 
 int[,,] CreateRandom3dArray(int row, int column, int level)

@@ -1,4 +1,4 @@
-﻿// Подготовил Раевский Р.Ю.
+﻿// C большим трудом подготовил Раевский Р.Ю.
 
 // Task 52. Задайте двумерный массив. 
 // Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива.
@@ -38,7 +38,7 @@ void SortArray(int[,] array)
 {
     for (int i = 0; i < array.GetLength(0); i++)
     {
-        for (int count = 0; count < array.GetLength(1) - 1; count++) // Честно пытался попробовать другие способы, но они показались уж слишком мудрёными
+        for (int count = 0; count < array.GetLength(1) - 1; count++) // Это был первый вариант
         {
             for (int j = 0; j < array.GetLength(1) - 1; j++)
             {
@@ -53,9 +53,38 @@ void SortArray(int[,] array)
     }
 }
 
+// void HardSort(int[,] array, int i, int firstJ, int lastJ) // Честно потом нашел код в инете, правда для одномерного массива, но пока подгонял под двумерный вроде даже немного понял.
+// {
+// 	if (lastJ == firstJ) return;
+// 	int border = array[i,lastJ];
+// 	int borderJ = firstJ;
+//     for (int j = firstJ; j <= lastJ - 1; j++)
+//         if (array[i,j] <= border)
+// 		{
+// 			int temp = array[i, j];
+// 			array[i, j] = array[i, borderJ];
+// 			array[i, borderJ] = temp;
+// 			borderJ++;
+// 		}
+    
+// 	    int n = array[i, borderJ];
+// 	    array[i, borderJ] = array[i, lastJ];
+// 	    array[i, lastJ] = n;
+// 	    if (borderJ > firstJ) HardSort(array, i, firstJ, borderJ - 1);
+// 	    if (borderJ < lastJ) HardSort(array, i, borderJ + 1, lastJ);
+// }
+
+// 	void FinalSort(int[,] array)
+// 		{
+// 			for(int i = 0; i < array.GetLength(0); i++)
+//                 HardSort(array, i, 0, array.GetLength(1) - 1);
+// 		}
+
+
 int[,] myArray = CreateRandom2dArray();
 Write2dArray(myArray);
 SortArray(myArray);
+//FinalSort(myArray);
 Write2dArray(myArray);
 */
 
@@ -151,8 +180,8 @@ void Write2dArray(int[,] array)
 
         Console.WriteLine();
     }
-    for (int j = 0; j < array.GetLength(1) * 3 - 1; j++)
-        Console.Write("__");
+    for (int j = 0; j < array.GetLength(1) * 2 - 1; j++)
+        Console.Write("___");
 
     Console.WriteLine();
 }
@@ -280,3 +309,64 @@ else
     Write3dArray(myArray);
 }
 */
+
+// Task 62. Напишите программу, которая заполнит спирально массив 4 на 4.
+
+int[,] CreateRandom2dArray()
+{
+    Console.Write("Введите число строк: ");
+    int rows = Convert.ToInt32(Console.ReadLine());
+    Console.Write("Введите число столбцов: ");
+    int columns = Convert.ToInt32(Console.ReadLine());
+
+    int[,] array = new int[rows, columns];
+
+    return array;
+}
+
+void Spiral(int[,] array, int n, int num)
+{
+    if (array[n, n] == 0)
+    {
+        for (int j = n, i = n; j < array.GetLength(1) - n; j++)
+        {
+            array[i, j] = num;
+            num++;
+        }
+
+        for (int j = array.GetLength(1) - n - 1, i = n + 1; i < array.GetLength(0) - n; i++)
+        {
+            array[i, j] = num;
+            num++;
+        }
+        for (int j = array.GetLength(1) - n - 2, i = array.GetLength(0) - n - 1; j >= n; j--)
+        {
+            array[i, j] = num;
+            num++;
+        }
+        for (int i = array.GetLength(0) - n - 2, j = n; i > n; i--)
+        {
+            array[i, j] = num;
+            num++;
+        }
+        Spiral(array, n + 1, num);
+    }
+    else return;
+}
+
+void Write2dArray(int[,] array)
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+            if (array[i, j] < 10) Console.Write("0" + array[i, j] + " ");
+            else Console.Write(array[i, j] + " ");
+
+        Console.WriteLine();
+    }
+    Console.WriteLine();
+}
+
+int[,] myArray = CreateRandom2dArray();
+Spiral(myArray, 0, 1);
+Write2dArray(myArray);
